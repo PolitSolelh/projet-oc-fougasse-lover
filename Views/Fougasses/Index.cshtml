@@ -1,0 +1,46 @@
+﻿@model IEnumerable<projet_oc_fougasse_lover.Models.Fougasses>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Tous nos articles</h1>
+
+<p>
+    @if (User.IsInRole("Admin"))
+    {
+        <a class="btn btn-primary" asp-action="Create">Nouvel article</a>
+    }
+</p>
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+    @foreach (var item in Model)
+    {
+        <div class="col flex-row">
+            <div class="card">
+                <a asp-action="Details" asp-route-id="@item.Id">
+                    <img src="@Html.DisplayFor(modelItem => item.ImageUrl)" class="card-img-top card-img-size object-fit-cover" style="height: 15rem;" />
+                </a>
+                <div class="card-body">
+                    <div class="card-title">
+                        <a class="text-decoration-none fw-bold fs-xl" asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
+                    </div>
+                    <div class="card-subtitle text-body-secondary fs-xs">
+                        @Html.DisplayFor(modelItem => item.Price)€ | @Html.DisplayFor(modelItem => item.Adress)
+                    </div>
+                    <p class="card-text overflow-auto" style="height: 5rem;">
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </p>
+
+                </div>
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="card-footer justify-content-around">
+
+                        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Editer</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,22 @@
+﻿@model projet_oc_fougasse_lover.Models.Fougasses
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>@Html.DisplayFor(Model => Model.Name)</h1>
+<h3 class="text-body-secondary">@Html.DisplayFor(Model => Model.Price)€ | @Html.DisplayFor(Model => Model.Adress)</h3>
+<div class="d-flex gap-5">
+    <img src="@Html.DisplayFor(Model => Model.ImageUrl)" alt="Image de l'article" style="height: 15rem; margin-right: 1rem; margin-bottom: 1rem;" />
+    <div style="white-space: pre-line;">@Html.DisplayFor(Model => Model.Text)</div>
+</div>
+<hr />
+<p>Créé le @Model.CreatedAt.ToString("d") à @Model.CreatedAt.ToString("t")</p>
+
+@if (User.IsInRole("Admin"))
+{
+    <div>
+        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Editer</a>
+        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Supprimer</a>
+    </div>
+}
